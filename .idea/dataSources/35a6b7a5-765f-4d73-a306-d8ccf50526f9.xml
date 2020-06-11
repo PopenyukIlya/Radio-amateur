@@ -1139,54 +1139,68 @@
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="288" parent="281" name="PRIMARY">
+    <column id="288" parent="281" name="user_id">
+      <Position>4</Position>
+      <DataType>bigint|0s</DataType>
+      <ColumnKind>normal</ColumnKind>
+    </column>
+    <index id="289" parent="281" name="FKb3y6etti1cfougkdr0qiiemgv">
+      <ColNames>user_id</ColNames>
+      <Type>btree</Type>
+    </index>
+    <key id="290" parent="281" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="289" parent="282" name="id">
+    <foreign-key id="291" parent="281" name="FKb3y6etti1cfougkdr0qiiemgv">
+      <ColNames>user_id</ColNames>
+      <RefTableName>user</RefTableName>
+      <RefColNames>id</RefColNames>
+    </foreign-key>
+    <column id="292" parent="282" name="id">
       <Position>1</Position>
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="290" parent="282" name="active">
+    <column id="293" parent="282" name="active">
       <Position>2</Position>
       <DataType>bit(1)|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="291" parent="282" name="password">
+    <column id="294" parent="282" name="password">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="292" parent="282" name="username">
+    <column id="295" parent="282" name="username">
       <Position>4</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <key id="293" parent="282" name="PRIMARY">
+    <key id="296" parent="282" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="294" parent="283" name="user_id">
+    <column id="297" parent="283" name="user_id">
       <Position>1</Position>
       <DataType>bigint|0s</DataType>
       <NotNull>1</NotNull>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <column id="295" parent="283" name="roles">
+    <column id="298" parent="283" name="roles">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <ColumnKind>normal</ColumnKind>
     </column>
-    <index id="296" parent="283" name="FK859n2jvi8ivhui0rl0esws6o">
+    <index id="299" parent="283" name="FK859n2jvi8ivhui0rl0esws6o">
       <ColNames>user_id</ColNames>
       <Type>btree</Type>
     </index>
-    <foreign-key id="297" parent="283" name="FK859n2jvi8ivhui0rl0esws6o">
+    <foreign-key id="300" parent="283" name="FK859n2jvi8ivhui0rl0esws6o">
       <ColNames>user_id</ColNames>
       <RefTableName>user</RefTableName>
       <RefColNames>id</RefColNames>
