@@ -53,10 +53,12 @@ public class RegistrationController {
            model.addAttribute("password2Error","Password confirmation cannot be empty");
         }
 
+        boolean equalsPasswords=false;
         if (user.getPassword()!=null&&!user.getPassword().equals(passwordConfirm)){
+            equalsPasswords=true;
     model.addAttribute("passwordError","Passwords are different");
 }
-if (isConfirmEmpty||bindingResult.hasErrors()||!response.isSuccess()){
+if (isConfirmEmpty||equalsPasswords||bindingResult.hasErrors()||!response.isSuccess()){
     Map<String, String> errors = ControllerUtils.getErrors(bindingResult);
     model.mergeAttributes(errors);
     return "registration";
