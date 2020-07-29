@@ -3,6 +3,7 @@ package com.example.servingwebcontent.service;
 import com.example.servingwebcontent.Repos.UserRepo;
 import com.example.servingwebcontent.domain.Role;
 import com.example.servingwebcontent.domain.User;
+import com.example.servingwebcontent.exceptions.EmailNotActivateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -31,6 +32,10 @@ public class UserService implements UserDetailsService {
         if (user==null){
             throw new UsernameNotFoundException("User not found");
         }
+        if (user.getActivationCode()!=null){
+            throw new EmailNotActivateException("Email is not activated");
+        }
+
         return user;
     }
 
