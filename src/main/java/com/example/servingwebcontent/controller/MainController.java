@@ -52,42 +52,42 @@ public class MainController {
 //        return "main";
 //    }
 //
-//    @PostMapping("/main")
-//    public String add(
-//            @RequestParam("file") MultipartFile file,
-//            @AuthenticationPrincipal User user,
-//          @Valid Product product,
-//            BindingResult bindingResult,
-//            Model model) throws IOException {
-//
-//
-//        if (bindingResult.hasErrors()) {
-//            Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
-//
-//            model.mergeAttributes(errorsMap);
-//            model.addAttribute("product", product);
-//        } else {
-//    if (file != null && !file.getOriginalFilename().isEmpty()) {
-//        File uploadDir = new File(uploadPath);
-//        if (!uploadDir.exists()) {
-//            uploadDir.mkdir();
-//        }
-//        String uuidFile = UUID.randomUUID().toString();
-//        String resultFilename = uuidFile + "." + file.getOriginalFilename();
-//
-//        file.transferTo(new File(uploadPath + "/" + resultFilename));
-//
-//        product.setFilename(resultFilename);
-//    }
-//model.addAttribute("message",null);
-//    productRepo.save(product);
-//}
-//        Iterable<Product> messages = productRepo.findAll();
-//
-//        model.addAttribute("messages", messages);
-//
-//        return "main";
-//    }
+    @PostMapping("/main")
+    public String add(
+            @RequestParam("file") MultipartFile file,
+            @AuthenticationPrincipal User user,
+          @Valid Product product,
+            BindingResult bindingResult,
+            Model model) throws IOException {
+
+
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
+
+            model.mergeAttributes(errorsMap);
+            model.addAttribute("product", product);
+        } else {
+    if (file != null && !file.getOriginalFilename().isEmpty()) {
+        File uploadDir = new File(uploadPath);
+        if (!uploadDir.exists()) {
+            uploadDir.mkdir();
+        }
+        String uuidFile = UUID.randomUUID().toString();
+        String resultFilename = uuidFile + "." + file.getOriginalFilename();
+
+        file.transferTo(new File(uploadPath + "/" + resultFilename));
+
+        product.setFilename(resultFilename);
+    }
+model.addAttribute("message",null);
+    productRepo.save(product);
+}
+        Iterable<Product> messages = productRepo.findAll();
+
+        model.addAttribute("messages", messages);
+
+        return "main";
+    }
 //
 //    @PostMapping("filter")
 //    public String filter(@RequestParam String filter, Map<String, Object> model) {

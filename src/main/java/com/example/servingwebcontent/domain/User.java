@@ -16,14 +16,32 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @NotBlank(message = "Username cannot be empty")
+//    @NotBlank(message = "Username cannot be empty")
     private String username;
     @NotBlank(message = "Password cannot be empty")
     private String password;
     private boolean active;
+    private String googleName;
+    private String googleUsername;
+
+    public String getGoogleName() {
+        return googleName;
+    }
+
+    public void setGoogleName(String googleName) {
+        this.googleName = googleName;
+    }
+
+    public String getGoogleUsername() {
+        return googleUsername;
+    }
+
+    public void setGoogleUsername(String googleUsername) {
+        this.googleUsername = googleUsername;
+    }
 
     @Email(message = "Email is not correct")
-    @NotBlank(message = "Username cannot be empty")
+//    @NotBlank(message = "Email cannot be empty")
     private String email;
     private String activationCode;
 

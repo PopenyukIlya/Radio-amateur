@@ -10,10 +10,10 @@
         <module name="shopSpring-master rebuild" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel target="12" />
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="shopSpring" options="-parameters" />
       <module name="shopSpring-master rebuild" options="-parameters" />
     </option>
   </component>
