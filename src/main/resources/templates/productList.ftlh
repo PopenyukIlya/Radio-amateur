@@ -1,7 +1,6 @@
 <#import "parts/common.ftlh" as c>
 <@c.page>
-
-    List of products
+    <h2>List of products</h2>
     <table>
         <thead>
         <tr>
@@ -16,7 +15,7 @@
                 <td>${product.name}</td>
                 <td>${product.price}</td>
                 <td>${product.category}</td>
-                <td><a href="/adminproducteditormenu/${product.id}">edit</a></td>
+                <td><a href="/adminproducteditormenu/product/${product.id}">edit</a></td>
             </tr>
         </#list>
         </tbody>
@@ -49,7 +48,42 @@
                 </div>
                 <input type="hidden" name="_csrf" value="${_csrf.token}" />
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Добавить</button>
+                    <button type="submit" class="btn btn-primary">Add new Product</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</br>
+    <h2>List of categories</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <#list categories as category>
+            <tr>
+                <td>${category.name}</td>
+                <td><a href="/adminproducteditormenu/category/${category.id}">edit</a></td>
+            </tr>
+        </#list>
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample">
+        Add new Category
+    </a>
+    <div class="collapse" id="collapseExample1">
+        <div class="form-group mt-3">
+            <form action="/adminproducteditormenu/addcategory" method="post" class="form-inline">
+                <div class="form-group">
+                    <input type="text" class="form-control"
+                           value="<#if category??>${category.name}</#if>" name="name" placeholder="Name">
+                </div>
+                <input type="hidden" name="_csrf" value="${_csrf.token}" />
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Add category</button>
                 </div>
             </form>
         </div>

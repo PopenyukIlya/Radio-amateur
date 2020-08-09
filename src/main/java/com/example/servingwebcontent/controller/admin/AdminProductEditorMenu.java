@@ -1,7 +1,9 @@
 package com.example.servingwebcontent.controller.admin;
 
+import com.example.servingwebcontent.Repos.CategoryRepo;
 import com.example.servingwebcontent.Repos.ProductRepo;
 import com.example.servingwebcontent.controller.ControllerUtils;
+import com.example.servingwebcontent.domain.Category;
 import com.example.servingwebcontent.domain.Product;
 import com.example.servingwebcontent.domain.User;
 import com.example.servingwebcontent.service.ProductService;
@@ -34,6 +36,8 @@ public class AdminProductEditorMenu {
     private ProductService productService;
     @Autowired
     private ProductRepo productRepo;
+    @Autowired
+    private CategoryRepo categoryRepo;
 
     @Value("${upload.path}")
     private String uploadPath;
@@ -41,9 +45,18 @@ public class AdminProductEditorMenu {
     @GetMapping
     public String productList(Model model) {
         model.addAttribute("products", productService.findAll());
+        model.addAttribute("categories",categoryRepo.findAll());
         return "productList";
     }
 
+    @PostMapping("/addcategory")
+    public String addCategory(@Valid Category category,
+                              BindingResult bindingResult,
+                              Model model){
+        if (category.getName()!=null){
+        categoryRepo.save(category);}
+        return "redirect:/adminproducteditormenu";
+    }
 
     @PostMapping
     public String add(
