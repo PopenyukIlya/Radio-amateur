@@ -15,16 +15,14 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
+import java.util.Optional;
 import java.util.UUID;
 
 @Controller
@@ -49,17 +47,51 @@ public class AdminProductEditorMenu {
         return "productList";
     }
 
+    @GetMapping("{id}")
+    public String productEdit(@PathVariable (value = "id") Long id, Model model) {
+        Optional<Product> product=productRepo.findById(id);
+        model.addAttribute("product",product.get());
+        model.addAttribute("categories",categoryRepo.findAll());
+        return "productEdit";
+    }
+
+    @PostMapping("{id}")
+    public String updateProduct( @PathVariable (value = "id") Long id,
+                                 @RequestParam String name,
+                                 @RequestParam String price,
+                                 @RequestParam String category,
+                                 @RequestParam String description,
+                                 @RequestParam("file") MultipartFile file) throws IOException {
+
+productService.updateProduct(id,name,price,category,description,file);
+        return "redirect:/adminproducteditormenu";
+    }
+
     @PostMapping("/addcategory")
     public String addCategory(@Valid Category category,
                               BindingResult bindingResult,
                               Model model){
         if (category.getName()!=null){
-        categoryRepo.save(category);}
+            categoryRepo.save(category);}
+        return "redirect:/adminproducteditormenu";
+    }
+
+    @GetMapping("/deleteproduct/{id}")
+    public String deleteProduct(@PathVariable (value = "id") Long id
+                             ){
+       productRepo.deleteById(id);
+        return "redirect:/adminproducteditormenu";
+    }
+
+    @GetMapping("/deletecategory/{id}")
+    public String deleteCategory(@PathVariable (value = "id") Long id
+    ){
+        categoryRepo.deleteById(id);
         return "redirect:/adminproducteditormenu";
     }
 
     @PostMapping
-    public String add(
+    public String addProduct(
             @RequestParam("file") MultipartFile file,
             @Valid Product product,
             BindingResult bindingResult,
@@ -87,9 +119,7 @@ public class AdminProductEditorMenu {
             productRepo.save(product);
         }
         Iterable<Product> products = productRepo.findAll();
-
         model.addAttribute("products", products);
-
-        return "productList";
+        return "redirect:/adminproducteditormenu";
     }
 }

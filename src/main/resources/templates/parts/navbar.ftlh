@@ -12,9 +12,9 @@
             <li class="nav-item">
                 <a class="nav-link" href="/">Home</a>
             </li>
-<#--            <li class="nav-item">-->
-<#--                <a class="nav-link" href="/main">Messages</a>-->
-<#--            </li>-->
+          <li class="nav-item">
+               <a class="nav-link" href="/main">Products</a>
+           </li>
             <#if user??>
             <li class="nav-item">
                 <a class="nav-link" href="/user/profile">Profile</a>

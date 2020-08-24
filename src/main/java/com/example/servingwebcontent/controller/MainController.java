@@ -37,21 +37,21 @@ public class MainController {
         return "greeting";
     }
 
-//    @GetMapping("/main")
-//    public String main(@RequestParam(required = false,defaultValue = "") String filter, Model model) {
-//        Iterable<Product> products = productRepo.findAll();
-//        if (filter != null && !filter.isEmpty()) {
-//            products = productRepo.findByCategory(filter);
-//        } else {
-//            products = productRepo.findAll();
-//        }
-//
-//        model.addAttribute("products", products);
-//        model.addAttribute("filter", filter);
-//
-//        return "main";
-//    }
-//
+    @GetMapping("/main")
+    public String main(@RequestParam(required = false,defaultValue = "") String filter, Model model) {
+        Iterable<Product> products = productRepo.findAll();
+        if (filter != null && !filter.isEmpty()) {
+            products = productRepo.findByCategory(filter);
+        } else {
+            products = productRepo.findAll();
+        }
+
+        model.addAttribute("products", products);
+        model.addAttribute("filter", filter);
+
+        return "main";
+    }
+
     @PostMapping("/main")
     public String add(
             @RequestParam("file") MultipartFile file,
