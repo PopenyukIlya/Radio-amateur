@@ -20,6 +20,11 @@
                 <a class="nav-link" href="/user/profile">Profile</a>
             </li>
             </#if>
+            <#if user??>
+                <li class="nav-item">
+                    <a class="nav-link" href="/cart">Cart</a>
+                </li>
+            </#if>
             <#if isAdmin>
                 <li class="nav-item">
                     <a class="nav-link" href="/adminusereditormenu">User list</a>

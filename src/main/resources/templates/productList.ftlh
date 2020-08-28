@@ -7,6 +7,7 @@
             <th>Name</th>
             <th>Price</th>
             <th>Category</th>
+            <th>Photo</th>
         </tr>
         </thead>
         <tbody>
@@ -15,6 +16,9 @@
                 <td>${product.name}</td>
                 <td>${product.price}</td>
                 <td>${product.category}</td>
+                <td><#if product.filename??>
+                        <img src="/img/${product.filename}" class="w-25 p-2 mb-3" style="background-color: #eee;">
+                    </#if></td>
                 <td><a href="/adminproducteditormenu/${product.id}">Edit</a></td>
                 <td><a href="/adminproducteditormenu/deleteproduct/${product.id}">Delete</a></td>
             </tr>
@@ -78,8 +82,7 @@
         <div class="form-group mt-3">
             <form action="/adminproducteditormenu/addcategory" method="post" class="form-inline">
                 <div class="form-group">
-                    <input type="text" class="form-control"
-                           value="<#if category??>${category.name}</#if>" name="name" placeholder="Name">
+                    <input type="text" class="form-control" name="name" placeholder="Name">
                 </div>
                 <input type="hidden" name="_csrf" value="${_csrf.token}" />
                 <div class="form-group">

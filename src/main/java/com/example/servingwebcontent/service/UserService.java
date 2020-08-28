@@ -62,12 +62,24 @@ user.setPassword(passwordEncoder.encode(user.getPassword()));
         if (!StringUtils.isEmpty(user.getEmail())) {
             String message = String.format(
                     "Hello, %s! \n" +
-                            "Welcome to Sweater. Please, visit next link: http://localhost:8080/activate/%s",
+                            "Welcome to Radio Amateur. Please, visit next link: http://localhost:8080/activate/%s",
                     user.getUsername(),
                     user.getActivationCode()
             );
 
             mailSender.send(user.getEmail(), "Activation code", message);
+        }
+    }
+    private void sendMessageForChange(User user) {
+        if (!StringUtils.isEmpty(user.getEmail())) {
+            String message = String.format(
+                    "Hello, %s! \n" +
+                            "Please confirm, that you want change password or email, visit next link: http://localhost:8080/activate/%s",
+                    user.getUsername(),
+                    user.getActivationCode()
+            );
+
+            mailSender.send(user.getEmail(), "Change profile settings", message);
         }
     }
 
@@ -120,7 +132,7 @@ if (!StringUtils.isEmpty(password)){
 }
 userRepo.save(user);
 if(isEmailChanged) {
-    sendMessage(user);
+    sendMessageForChange(user);
 }
     }
 }

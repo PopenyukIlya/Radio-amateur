@@ -1,3 +1,4 @@
+<#include "parts/security.ftlh">
 <#import "parts/common.ftlh" as c>
 <@c.page>
     <div class="form-row">
@@ -13,17 +14,23 @@
 
     <div class="card-columns">
         <#list products as product>
-            <div class="card my-3">
+            <div class="card w-75">
+                <form action="/cartadd" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="_csrf" value="${_csrf.token}" />
+                    <input type="hidden" name="userId" value="${id}" />
+                    <input type="hidden" name="productId" value="${product.id}" />
                 <#if product.filename??>
-                    <img src="/img/${product.filename}" class="card-img-top">
+                    <img src="/img/${product.filename}"  class="card w-50 p-2">
                 </#if>
-                <div class="m-2">
+                <div class="m-1">
                     <span>${product.name}</span>
                     <i>${product.category}</i>
                 </div>
                 <div class="card-footer text-muted">
                     ${product.price} <b><i>BYN</i></b>
+                    <button type="submit" class="btn btn-primary ml-3">Add to cart</button>
                 </div>
+                </form>
             </div>
         <#else>
             No products

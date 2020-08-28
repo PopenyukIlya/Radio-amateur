@@ -5,13 +5,10 @@ import com.example.servingwebcontent.Repos.ProductRepo;
 import com.example.servingwebcontent.controller.ControllerUtils;
 import com.example.servingwebcontent.domain.Category;
 import com.example.servingwebcontent.domain.Product;
-import com.example.servingwebcontent.domain.User;
 import com.example.servingwebcontent.service.ProductService;
-import com.example.servingwebcontent.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -68,9 +65,8 @@ productService.updateProduct(id,name,price,category,description,file);
     }
 
     @PostMapping("/addcategory")
-    public String addCategory(@Valid Category category,
-                              BindingResult bindingResult,
-                              Model model){
+    public String addCategory(@Valid Category category
+                              ){
         if (category.getName()!=null){
             categoryRepo.save(category);}
         return "redirect:/adminproducteditormenu";
