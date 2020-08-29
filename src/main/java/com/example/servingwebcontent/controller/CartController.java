@@ -9,9 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -42,6 +40,20 @@ Cart cart=new Cart(Long.parseLong(userId), Long.parseLong(productId));
     Iterable<Product> products = productService.findProductsInCart(user);
     model.addAttribute("products",products);
     return "cart";
+}
+
+@GetMapping("/cart/deleteproduct/{id}")
+    public String deleteProductFromCart(@PathVariable(value = "id") Long id,
+                                        @AuthenticationPrincipal User user){
+    List<Cart> byUserId = cartRepo.findByUserId(user.getId());
+    Cart cart=new Cart();
+    for (int i=0;i<byUserId.size();i++){
+        if (byUserId.get(i).getProductId()==id){
+            cart=byUserId.get(i);
+        }
+    }
+    cartRepo.delete(cart);
+    return "redirect:/cart";
 }
 
 
