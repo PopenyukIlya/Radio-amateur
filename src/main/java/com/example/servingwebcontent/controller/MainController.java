@@ -1,8 +1,8 @@
 package com.example.servingwebcontent.controller;
 
 
-import com.example.servingwebcontent.Repos.MessageRepo;
-import com.example.servingwebcontent.domain.Message;
+import com.example.servingwebcontent.Repos.ProductRepo;
+import com.example.servingwebcontent.domain.Product;
 import com.example.servingwebcontent.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,24 +10,21 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
 
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Controller
 public class MainController {
     @Autowired
-    private MessageRepo messageRepo;
+    private ProductRepo productRepo;
 
     @Value("${upload.path}")
     private String uploadPath;
@@ -39,14 +36,14 @@ public class MainController {
 
     @GetMapping("/main")
     public String main(@RequestParam(required = false,defaultValue = "") String filter, Model model) {
-        Iterable<Message> messages = messageRepo.findAll();
+        Iterable<Product> products = productRepo.findAll();
         if (filter != null && !filter.isEmpty()) {
-            messages = messageRepo.findByTag(filter);
+            products = productRepo.findByCategory(filter);
         } else {
-            messages = messageRepo.findAll();
+            products = productRepo.findAll();
         }
 
-        model.addAttribute("messages", messages);
+        model.addAttribute("products", products);
         model.addAttribute("filter", filter);
 
         return "main";
@@ -56,16 +53,16 @@ public class MainController {
     public String add(
             @RequestParam("file") MultipartFile file,
             @AuthenticationPrincipal User user,
-          @Valid Message message,
+          @Valid Product product,
             BindingResult bindingResult,
             Model model) throws IOException {
-message.setAuthor(user);
+
 
         if (bindingResult.hasErrors()) {
             Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
 
             model.mergeAttributes(errorsMap);
-            model.addAttribute("message", message);
+            model.addAttribute("product", product);
         } else {
     if (file != null && !file.getOriginalFilename().isEmpty()) {
         File uploadDir = new File(uploadPath);
@@ -77,23 +74,23 @@ message.setAuthor(user);
 
         file.transferTo(new File(uploadPath + "/" + resultFilename));
 
-        message.setFilename(resultFilename);
+        product.setFilename(resultFilename);
     }
 model.addAttribute("message",null);
-    messageRepo.save(message);
+    productRepo.save(product);
 }
-        Iterable<Message> messages = messageRepo.findAll();
+        Iterable<Product> messages = productRepo.findAll();
 
         model.addAttribute("messages", messages);
 
         return "main";
     }
-
-    @PostMapping("filter")
-    public String filter(@RequestParam String filter, Map<String, Object> model) {
-        Iterable<Message> messages;
-
-
-        return "main";
-    }
+//
+//    @PostMapping("filter")
+//    public String filter(@RequestParam String filter, Map<String, Object> model) {
+//        Iterable<Product> products;
+//
+//
+//        return "main";
+//    }
 }

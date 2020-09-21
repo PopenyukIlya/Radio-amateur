@@ -13,4 +13,8 @@
         </div>
     </#if>
     <@l.login "/login" false/>
+    <div align="center">
+    <a href="/login/google">Войти через Google</a>
+</div>
+
 </@c.page>

@@ -3,6 +3,7 @@ package com.example.servingwebcontent.service;
 import com.example.servingwebcontent.Repos.UserRepo;
 import com.example.servingwebcontent.domain.Role;
 import com.example.servingwebcontent.domain.User;
+import com.example.servingwebcontent.exceptions.EmailNotActivateException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserService implements UserDetailsService {
+
     @Autowired
     private UserRepo userRepo;
 
@@ -31,6 +33,10 @@ public class UserService implements UserDetailsService {
         if (user==null){
             throw new UsernameNotFoundException("User not found");
         }
+        if (user.getActivationCode()!=null){
+            throw new EmailNotActivateException("Email is not activated");
+        }
+
         return user;
     }
 
@@ -56,12 +62,24 @@ user.setPassword(passwordEncoder.encode(user.getPassword()));
         if (!StringUtils.isEmpty(user.getEmail())) {
             String message = String.format(
                     "Hello, %s! \n" +
-                            "Welcome to Sweater. Please, visit next link: http://localhost:8080/activate/%s",
+                            "Welcome to Radio Amateur. Please, visit next link: http://localhost:8080/activate/%s",
                     user.getUsername(),
                     user.getActivationCode()
             );
 
             mailSender.send(user.getEmail(), "Activation code", message);
+        }
+    }
+    private void sendMessageForChange(User user) {
+        if (!StringUtils.isEmpty(user.getEmail())) {
+            String message = String.format(
+                    "Hello, %s! \n" +
+                            "Please confirm, that you want change password or email, visit next link: http://localhost:8080/activate/%s",
+                    user.getUsername(),
+                    user.getActivationCode()
+            );
+
+            mailSender.send(user.getEmail(), "Change profile settings", message);
         }
     }
 
@@ -114,7 +132,7 @@ if (!StringUtils.isEmpty(password)){
 }
 userRepo.save(user);
 if(isEmailChanged) {
-    sendMessage(user);
+    sendMessageForChange(user);
 }
     }
 }

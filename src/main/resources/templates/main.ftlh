@@ -1,3 +1,4 @@
+<#include "parts/security.ftlh">
 <#import "parts/common.ftlh" as c>
 <@c.page>
     <div class="form-row">
@@ -9,60 +10,30 @@
         </div>
     </div>
 
-    <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-        Add new Message
-    </a>
-    <div class="collapse <#if message??>show</#if>" id="collapseExample">
-        <div class="form-group mt-3">
-            <form method="post" enctype="multipart/form-data">
-                <div class="form-group">
-                    <input type="text" class="form-control ${(textError??)?string('is-invalid', '')}"
-                           value="<#if message??>${message.text}</#if>" name="text" placeholder="Введите сообщение" />
-                    <#if textError??>
-                        <div class="invalid-feedback">
-                            ${textError}
-                        </div>
-                    </#if>
-                </div>
-                <div class="form-group">
-                    <input type="text" class="form-control"
-                           value="<#if message??>${message.tag}</#if>" name="tag" placeholder="Тэг">
-                    <#if tagError??>
-                        <div class="invalid-feedback">
-                            ${tagError}
-                        </div>
-                    </#if>
-                </div>
-                <div class="form-group">
-                    <div class="custom-file">
-                        <input type="file" name="file" id="customFile">
-                        <label class="custom-file-label" for="customFile">Choose file</label>
-                    </div>
-                </div>
-                <input type="hidden" name="_csrf" value="${_csrf.token}" />
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Добавить</button>
-                </div>
-            </form>
-        </div>
-    </div>
+
 
     <div class="card-columns">
-        <#list messages as message>
-            <div class="card my-3">
-                <#if message.filename??>
-                    <img src="/img/${message.filename}" class="card-img-top">
+        <#list products as product>
+            <div class="card w-75">
+                <form action="/cartadd" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="_csrf" value="${_csrf.token}" />
+                    <input type="hidden" name="userId" value="${id}" />
+                    <input type="hidden" name="productId" value="${product.id}" />
+                <#if product.filename??>
+                    <img src="/img/${product.filename}"  class="card w-50 p-2">
                 </#if>
-                <div class="m-2">
-                    <span>${message.text}</span>
-                    <i>${message.tag}</i>
+                <div class="m-1">
+                    <span>${product.name}</span>
+                    <i>${product.category}</i>
                 </div>
                 <div class="card-footer text-muted">
-                    ${message.authorName}
+                    ${product.price} <b><i>BYN</i></b>
+                    <button type="submit" class="btn btn-primary ml-3">Add to cart</button>
                 </div>
+                </form>
             </div>
         <#else>
-            No message
+            No products
         </#list>
     </div>
 </@c.page>

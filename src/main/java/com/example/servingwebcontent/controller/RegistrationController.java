@@ -82,7 +82,6 @@ if (isConfirmEmpty||equalsPasswords||bindingResult.hasErrors()||!response.isSucc
             model.addAttribute("messageType", "danger");
             model.addAttribute("message", "Activation code is not found!");
         }
-
         return "login";
     }
 }
