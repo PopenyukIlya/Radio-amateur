@@ -24,6 +24,7 @@
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
         </dependency>
+
         <!-- freemarker -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
