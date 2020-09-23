@@ -63,7 +63,7 @@ public class ProductService {
 
     public List<Product> findProductsInCart(User user) {
         List<Cart> cartList = cartRepo.findByUserId(user.getId());
-List<Product> products=new ArrayList<>();
+        List<Product> products=new ArrayList<>();
         for (int i=0;i<cartList.size();i++) {
           Product product= productRepo.findById(cartList.get(i).getProductId()).get();
           products.add(new Product(product.getId(),product.getName(),product.getPrice(),

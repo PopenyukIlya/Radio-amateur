@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 public class CartController {
@@ -24,10 +25,10 @@ public class CartController {
 public String addToCart( @RequestParam String userId,
                          @RequestParam String productId){
 Cart cart=new Cart(Long.parseLong(userId), Long.parseLong(productId));
-    List<Cart> all = cartRepo.findByUserId(Long.parseLong(userId));
+    List<Cart> userCart = cartRepo.findByUserId(Long.parseLong(userId));
     boolean isInCart=false;
-    for (int i=0;i<all.size();i++) {
-        if (all.get(i).getProductId() == cart.getProductId()){
+    for (int i=0;i<userCart.size();i++) {
+        if (Objects.equals(userCart.get(i).getProductId(), Long.parseLong(productId) )){
             isInCart=true;
         }
     }
@@ -48,7 +49,7 @@ Cart cart=new Cart(Long.parseLong(userId), Long.parseLong(productId));
     List<Cart> byUserId = cartRepo.findByUserId(user.getId());
     Cart cart=new Cart();
     for (int i=0;i<byUserId.size();i++){
-        if (byUserId.get(i).getProductId()==id){
+        if (Objects.equals(byUserId.get(i).getProductId(),id)){
             cart=byUserId.get(i);
         }
     }
