@@ -93,15 +93,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilterBefore(ssoFilter(), UsernamePasswordAuthenticationFilter.class);
         http
                 .authorizeRequests()
-                .antMatchers("/", "/registration", "/static/**","/activate/*").permitAll()
+                .antMatchers("/", "/registration", "/static/**","/activate/*","/js/**","/category/**").permitAll()
                 .anyRequest().authenticated()
-             .and()
+                .and()
                 .formLogin()
                 .loginPage("/login")
                 .permitAll()
-             .and()
+                .and()
                 .rememberMe()
-             .and()
+                .and()
                 .logout()
                 .permitAll();
 

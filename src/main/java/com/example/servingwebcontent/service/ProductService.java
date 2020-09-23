@@ -25,6 +25,10 @@ public class ProductService {
     @Value("${upload.path}")
     private String uploadPath;
 
+    @Value("${defaultJpg}")
+    private String defaultImg;
+
+
     @Autowired
     private ProductRepo productRepo;
     @Autowired
@@ -39,6 +43,9 @@ public class ProductService {
   Product product= productRepo.findById(id).get();
         if (file != null && !file.getOriginalFilename().isEmpty()) {
             File uploadDir = new File(uploadPath);
+            if (product.getFilename()!=defaultImg){
+            File oldFile=new File(uploadPath+ "/" +product.getFilename());
+            oldFile.delete();}
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
             }
@@ -58,11 +65,10 @@ public class ProductService {
         List<Cart> cartList = cartRepo.findByUserId(user.getId());
 List<Product> products=new ArrayList<>();
         for (int i=0;i<cartList.size();i++) {
-          Optional<Product> product= productRepo.findById(cartList.get(i).getProductId());
-          products.add(new Product(product.get().getId(),product.get().getName(),product.get().getPrice(),
-                  product.get().getDescription(),product.get().getCategory(),product.get().getFilename()));
+          Product product= productRepo.findById(cartList.get(i).getProductId()).get();
+          products.add(new Product(product.getId(),product.getName(),product.getPrice(),
+                  product.getDescription(),product.getCategory(),product.getFilename()));
         }
-
         return  products;
     }
 }

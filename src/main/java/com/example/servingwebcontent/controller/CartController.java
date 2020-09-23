@@ -37,7 +37,7 @@ Cart cart=new Cart(Long.parseLong(userId), Long.parseLong(productId));
 
 @GetMapping("/cart")
     public String viewCart(Model model, @AuthenticationPrincipal User user){
-    Iterable<Product> products = productService.findProductsInCart(user);
+    List<Product> products = productService.findProductsInCart(user);
     model.addAttribute("products",products);
     return "cart";
 }

@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
@@ -37,6 +38,9 @@ public class AdminProductEditorMenu {
     @Value("${upload.path}")
     private String uploadPath;
 
+    @Value("${defaultJpg}")
+    private String defaultImg;
+
     @GetMapping
     public String productList(Model model) {
         model.addAttribute("products", productService.findAll());
@@ -46,8 +50,8 @@ public class AdminProductEditorMenu {
 
     @GetMapping("{id}")
     public String productEdit(@PathVariable (value = "id") Long id, Model model) {
-        Optional<Product> product=productRepo.findById(id);
-        model.addAttribute("product",product.get());
+        Product product=productRepo.findById(id).get();
+        model.addAttribute("product",product);
         model.addAttribute("categories",categoryRepo.findAll());
         return "productEdit";
     }
@@ -110,7 +114,7 @@ productService.updateProduct(id,name,price,category,description,file);
                 file.transferTo(new File(uploadPath + "/" + resultFilename));
 
                 product.setFilename(resultFilename);
-            }
+            }else {product.setFilename(defaultImg);}
             model.addAttribute("message",null);
             productRepo.save(product);
         }

@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -36,14 +37,9 @@ public class MainController {
 
     @GetMapping("/main")
     public String main(@RequestParam(required = false,defaultValue = "") String filter, Model model) {
-        Iterable<Product> products = productRepo.findAll();
-        if (filter != null && !filter.isEmpty()) {
-            products = productRepo.findByCategory(filter);
-        } else {
-            products = productRepo.findAll();
-        }
 
-        model.addAttribute("products", products);
+
+        model.addAttribute("products", productRepo.findAll());
         model.addAttribute("filter", filter);
 
         return "main";

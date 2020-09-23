@@ -41,8 +41,14 @@
                            value="<#if product??>${product.price}</#if>" name="price" placeholder="Price">
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control"
-                           value="<#if product??>${product.category}</#if>" name="category" placeholder="Category">
+<#--                    <input type="text" class="form-control"-->
+<#--                           value="<#if product??>${product.category}</#if>" name="category" placeholder="Category">-->
+                    <select id="category" name="category" class="form-control">
+                        <option selected>Choose category</option>
+                        <#list categories as category>
+                        <option value=${category.name}>${category.name}</option>
+                     </#list>
+                    </select>
                 </div>
 
                 <div class="form-group">

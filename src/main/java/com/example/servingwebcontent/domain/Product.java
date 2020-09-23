@@ -24,6 +24,7 @@ public class Product {
     private String category;
     private String filename;
 
+
     public Long getId() {
         return id;
     }
