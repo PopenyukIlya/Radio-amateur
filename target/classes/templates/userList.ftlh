@@ -1,8 +1,8 @@
 <#import "parts/common.ftlh" as c>
 <@c.page>
 
-    List of users
-    <table>
+    <h2>List of users</h2>
+    <table class="table-responsive-sm table-hover table-striped table-bordered ">
         <thead>
         <tr>
             <th>Name</th>
@@ -16,7 +16,7 @@
     <tr>
         <td>${user.username}</td>
         <td><#list user.roles as role>${role}<#sep>, </#list></td>
-        <td><a href="/adminusereditormenu/${user.id}">edit</a></td>
+        <td><a class="btn btn-primary" href="/adminusereditormenu/${user.id}">Edit</a></td>
     </tr>
 </#list>
         </tbody>

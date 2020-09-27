@@ -2,7 +2,7 @@
 <@c.page>
 
 <h2>Cart</h2>
-<table>
+    <table class="table-responsive-xl table-hover table-striped table-bordered">
     <thead>
     <tr>
         <th>Name</th>
@@ -20,7 +20,7 @@
             <td><#if product.filename??>
                     <img src="/img/${product.filename}" class="w-25 p-2 mb-3" style="background-color: #eee;">
                 </#if></td>
-            <td><a href="/cart/deleteproduct/${product.id}">Delete</a></td>
+            <td><a class="btn btn-danger" href="/cart/deleteproduct/${product.id}">Delete</a></td>
         </tr>
           <#else>
             No products

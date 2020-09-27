@@ -13,23 +13,26 @@
 
 
 
-    <div class="card-columns">
+    <div class="card-columns ">
         <#list products as product>
-            <div class="card w-75">
+            <div class="card p-3">
                 <form action="/cartadd" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="_csrf" value="${_csrf.token}" />
                     <input type="hidden" name="userId" value="${id}" />
                     <input type="hidden" name="productId" value="${product.id}" />
+               <a href="/product/${product.id}">
                 <#if product.filename??>
-                    <img src="/img/${product.filename}"  class="card w-50 p-2">
+                    <img src="/img/${product.filename}"  class="card-img-top">
                 </#if>
                 <div class="m-1">
                     <span>${product.name}</span>
+                </div></a>
+                    <div class="m-1">
                     <i>${product.category}</i>
                 </div>
-                <div class="card-footer text-muted">
+                <div class="card-footer pl-4">
                     ${product.price} <b><i>BYN</i></b>
-                    <button type="submit" class="btn btn-primary ml-3">Add to cart</button>
+                    <button type="submit" class="btn btn-primary mx-5">Add to cart</button>
                 </div>
                 </form>
             </div>

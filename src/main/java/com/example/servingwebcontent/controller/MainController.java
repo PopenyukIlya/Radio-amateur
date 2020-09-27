@@ -38,7 +38,6 @@ public class MainController {
     @GetMapping("/main")
     public String main(@RequestParam(required = false,defaultValue = "") String filter, Model model) {
 
-
         model.addAttribute("products", productRepo.findAll());
         model.addAttribute("filter", filter);
 

@@ -20,7 +20,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.UUID;
 
 @Controller
@@ -71,7 +70,7 @@ productService.updateProduct(id,name,price,category,description,file);
     @PostMapping("/addcategory")
     public String addCategory(@Valid Category category
                               ){
-        if (category.getName()!=null){
+        if (!category.getName().equals("")){
             categoryRepo.save(category);}
         return "redirect:/adminproducteditormenu";
     }
@@ -79,7 +78,12 @@ productService.updateProduct(id,name,price,category,description,file);
     @GetMapping("/deleteproduct/{id}")
     public String deleteProduct(@PathVariable (value = "id") Long id
                              ){
+        Product product= productRepo.findById(id).get();
+        if (!product.getFilename().equals(defaultImg)){
+        File oldFile=new File(uploadPath+ "/" +product.getFilename());
+        oldFile.delete();}
        productRepo.deleteById(id);
+
         return "redirect:/adminproducteditormenu";
     }
 

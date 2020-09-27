@@ -1,13 +1,15 @@
 <#import "parts/common.ftlh" as c>
 <@c.page>
     <h2>List of products</h2>
-    <table>
-        <thead>
+    <table class="table-responsive-sm table-hover table-striped table-bordered ">
+    <thead>
         <tr>
             <th>Name</th>
             <th>Price</th>
             <th>Category</th>
             <th>Photo</th>
+            <th></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -19,8 +21,8 @@
                 <td><#if product.filename??>
                         <img src="/img/${product.filename}" class="w-25 p-2 mb-3" style="background-color: #eee;">
                     </#if></td>
-                <td><a href="/adminproducteditormenu/${product.id}">Edit</a></td>
-                <td><a href="/adminproducteditormenu/deleteproduct/${product.id}">Delete</a></td>
+                <td><a class="btn btn-primary" href="/adminproducteditormenu/${product.id}">Edit</a></td>
+                <td><a class="btn btn-danger" href="/adminproducteditormenu/deleteproduct/${product.id}">Delete</a></td>
             </tr>
         </#list>
         </tbody>
@@ -66,18 +68,20 @@
     </div>
 </br>
     <h2>List of categories</h2>
-    <table>
-        <thead>
+    <table class="table-responsive-sm table-hover table-striped table-bordered ">
+    <thead>
         <tr>
             <th>Name</th>
+            <th></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
         <#list categories as category>
             <tr>
                 <td>${category.name}</td>
-                <td><a href="/adminproducteditormenu/category/${category.id}">Edit</a></td>
-                <td><a href="/adminproducteditormenu/deletecategory/${category.id}">Delete</a></td>
+                <td><a class="btn btn-primary" href="/adminproducteditormenu/category/${category.id}">Edit</a></td>
+                <td><a class="btn btn-danger" href="/adminproducteditormenu/deletecategory/${category.id}">Delete</a></td>
             </tr>
         </#list>
         </tbody>

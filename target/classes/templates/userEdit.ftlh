@@ -1,7 +1,7 @@
 <#import "parts/common.ftlh" as c>
 
 <@c.page>
-    User editor
+    <h2> User editor</h2>
 
     <form action="/adminusereditormenu" method="post">
         <input type="text" name="username" value="${user.username}">
@@ -12,6 +12,6 @@
         </#list>
         <input type="hidden" value="${user.id}" name="userId">
         <input type="hidden" value="${_csrf.token}" name="_csrf">
-        <button type="submit">Save</button>
+        <button class="btn btn-primary" type="submit">Save</button>
     </form>
 </@c.page>

@@ -14,7 +14,9 @@
                 <a class="nav-link" href="/">Home</a>
             </li>
           <li class="nav-item">
+              <div id="nav">
                <a class="nav-link" href="/main">Products</a>
+              </div>
            </li>
             <#if user??>
             <li class="nav-item">
