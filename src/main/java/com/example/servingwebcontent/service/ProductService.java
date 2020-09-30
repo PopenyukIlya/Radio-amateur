@@ -40,12 +40,12 @@ public class ProductService {
 
     public void updateProduct(Long id, String name, String price, String category,
                               String description, MultipartFile file) throws IOException {
-  Product product= productRepo.findById(id).get();
+        Product product= productRepo.findById(id).get();
         if (file != null && !file.getOriginalFilename().isEmpty()) {
             File uploadDir = new File(uploadPath);
             if (product.getFilename()!=defaultImg){
-            File oldFile=new File(uploadPath+ "/" +product.getFilename());
-            oldFile.delete();}
+                File oldFile=new File(uploadPath+ "/" +product.getFilename());
+                oldFile.delete();}
             if (!uploadDir.exists()) {
                 uploadDir.mkdir();
             }
@@ -58,16 +58,15 @@ public class ProductService {
         product.setDescription(description);
         product.setName(name);
         product.setPrice(Double.parseDouble( price.replace(",",".") ));
-  productRepo.save(product);
+        productRepo.save(product);
     }
 
     public List<Product> findProductsInCart(User user) {
         List<Cart> cartList = cartRepo.findByUserId(user.getId());
         List<Product> products=new ArrayList<>();
         for (int i=0;i<cartList.size();i++) {
-          Product product= productRepo.findById(cartList.get(i).getProductId()).get();
-          products.add(new Product(product.getId(),product.getName(),product.getPrice(),
-                  product.getDescription(),product.getCategory(),product.getFilename()));
+            Product product= productRepo.findById(cartList.get(i).getProductId()).get();
+            products.add(product);
         }
         return  products;
     }

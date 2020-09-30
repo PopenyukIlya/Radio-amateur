@@ -25,8 +25,6 @@ import java.util.List;
 public class AuthProviderImpl implements AuthenticationProvider {
 
     @Autowired
-    private UserRepo userRepository;
-    @Autowired
     private UserService userService;
 
     @Autowired
