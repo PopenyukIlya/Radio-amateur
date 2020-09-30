@@ -2,11 +2,9 @@ package com.example.servingwebcontent.service;
 
 import com.example.servingwebcontent.Repos.CartRepo;
 import com.example.servingwebcontent.Repos.ProductRepo;
-import com.example.servingwebcontent.Repos.UserRepo;
 import com.example.servingwebcontent.domain.Cart;
 import com.example.servingwebcontent.domain.Product;
 import com.example.servingwebcontent.domain.User;
-import org.bouncycastle.util.Iterable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -16,7 +14,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service

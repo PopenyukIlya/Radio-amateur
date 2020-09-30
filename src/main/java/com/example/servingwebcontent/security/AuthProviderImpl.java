@@ -1,10 +1,6 @@
 package com.example.servingwebcontent.security;
 
-import com.example.servingwebcontent.Repos.UserRepo;
-
-import com.example.servingwebcontent.domain.Role;
 import com.example.servingwebcontent.domain.User;
-import com.example.servingwebcontent.exceptions.EmailNotActivateException;
 import com.example.servingwebcontent.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -13,13 +9,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 @Component
 public class AuthProviderImpl implements AuthenticationProvider {
